@@ -1,8 +1,18 @@
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const app = express();
 const db = require("./config/db");
+
+const route = require("./routes");
+
+// Cookie
+app.use(cookieParser());
+
+//CORS
+app.use(cors({ origin: true, credentials: true }));
 
 // Kết nối với database
 db.connect();
@@ -24,16 +34,8 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World oki!");
-});
-
-app.post("/home", (req, res) => {
-  res.send({
-    name: req.body.name,
-    title: req.body.title,
-  });
-});
+//Router init
+route(app);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
