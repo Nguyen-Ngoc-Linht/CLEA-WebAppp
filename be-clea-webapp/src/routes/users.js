@@ -12,10 +12,12 @@ router.post(
 );
 
 router.post(
-  "/block/id",
+  "/block/:id",
   authenication.authenticateUser,
   authenication.checkAdmin,
   userControllers.block
 );
+
+router.get("/", authenication.checkAdmin, userControllers.getlistUser);
 
 module.exports = router;

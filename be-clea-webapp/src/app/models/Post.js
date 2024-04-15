@@ -17,6 +17,9 @@ const Post = new Schema({
   created_at: {
     type: Date,
   },
+  images: {
+    type: Object,
+  },
   number_like: {
     type: Number,
   },

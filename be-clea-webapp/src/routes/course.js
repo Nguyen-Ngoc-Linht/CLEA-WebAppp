@@ -4,8 +4,10 @@ const router = express.Router();
 const coursesControllers = require("../app/controllers/CoursesControllers");
 const authenication = require("../app/middlewares/authenication");
 
-router.get("/", coursesControllers.creatCourse);
+router.get("/", coursesControllers.index);
 
-router.get("/", authenication.checkAdmin, coursesControllers.index);
+router.get("/category", coursesControllers.categoryCourse);
+
+router.post("/", authenication.checkAdmin, coursesControllers.creatCourse);
 
 module.exports = router;
