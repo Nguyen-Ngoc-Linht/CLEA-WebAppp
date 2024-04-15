@@ -4,6 +4,7 @@ const { compareSync } = require("bcryptjs");
 const { JWT_SECRET_KEY } = require("../../config/config.js");
 var jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Token = require("../models/Token");
 
 class AuthsControllers {
   //[GET]/auths/signup
@@ -59,6 +60,14 @@ class AuthsControllers {
             JWT_SECRET_KEY,
             { expiresIn: 60 * 60 }
           );
+          Token.create({
+            token: token,
+            createAt: Date.now(),
+            termAt: Date.now() + 60 * 60,
+            userName: user.userName,
+            user_id: user._id,
+            checkLogout: false,
+          });
           res.json({
             status: 200,
             message: "Đăng nhâp thành công",

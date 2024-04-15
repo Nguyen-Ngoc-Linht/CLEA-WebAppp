@@ -1,8 +1,7 @@
+const images = require("../app/controllers/images");
 const express = require("express");
 const router = express.Router();
-const postControllers = require("../app/controllers/PostControllers");
-const authenication = require("../app/middlewares/authenication");
-
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinaryConfig");
 const multer = require("multer");
 const fs = require("fs");
@@ -25,13 +24,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get("/", authenication.authenticateUser, postControllers.index);
+router.post("/", upload.array("images", 10), images.uploadImages);
 
-router.post(
-  "/",
-  authenication.authenticateUser,
-  upload.array("images", 10),
-  postControllers.apicreatePost
-);
+router.get("/:idimage", (req, res) => {
+  const imageName = `upload/${req.params.idimage}`;
+  fs.readFile(imageName, (err, imageData) => {
+    if (err) {
+      res.json({
+        status: 500,
+        mesage: "Không đọc được ảnh",
+      });
+    } else {
+      res.writeHead(200, {});
+      res.end(imageData);
+    }
+  });
+});
 
 module.exports = router;

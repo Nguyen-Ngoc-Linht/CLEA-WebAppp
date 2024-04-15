@@ -2,6 +2,24 @@
 const User = require("../models/User");
 
 class UsersControllers {
+  //[GET]/api/users
+  async getlistUser(req, res) {
+    try {
+      User.find({}).then((users) => {
+        res.json({
+          status: 200,
+          messages: "Lấy danh sách tài khoản thành công",
+          data: users,
+        });
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
+
   //[POST]/api/users/:id
   async setrole(req, res) {
     try {
