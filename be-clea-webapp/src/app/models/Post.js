@@ -11,6 +11,9 @@ const Post = new Schema({
   user_id: {
     type: String,
   },
+  username: {
+    type: String,
+  },
   status: {
     type: String,
   },

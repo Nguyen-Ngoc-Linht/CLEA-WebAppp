@@ -1,9 +1,6 @@
+const utils = require("../app/controllers/UtilsControllers");
 const express = require("express");
 const router = express.Router();
-const postControllers = require("../app/controllers/PostControllers");
-const authenication = require("../app/middlewares/authenication");
-
-const cloudinary = require("../config/cloudinaryConfig");
 const multer = require("multer");
 const fs = require("fs");
 
@@ -18,13 +15,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get("/", postControllers.index);
+// router.get("/", (req, res) => {
+//   res.json({
+//     status: 200,
+//   });
+// });
 
-router.post(
-  "/",
-  authenication.authenticateUser,
-  upload.single("images"),
-  postControllers.apicreatePost
-);
+router.post("/useraccount", upload.single("images"), utils.updateAvatar);
 
 module.exports = router;

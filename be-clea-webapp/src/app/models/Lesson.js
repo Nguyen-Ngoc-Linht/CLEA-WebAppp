@@ -8,6 +8,9 @@ const Lesson = new Schema({
   title: {
     type: String,
   },
+  content: {
+    type: String,
+  },
   nameLesson: {
     type: String,
   },

@@ -2,29 +2,61 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 
 class PostControllers {
-  //[get]/api/posts/:user_id?post_id=
-  index(req, res) {}
+  //[get]/api/posts/
+  async index(req, res) {
+    try {
+      const posts = await Post.find({});
+
+      if (posts.length > 0) {
+        const result = [];
+        for (let i = 0; i < posts.length; i++) {
+          const user = await User.findOne({ _id: posts[i].user_id });
+          const item = {
+            body: posts[i].body,
+            created_at: posts[i].created_at,
+            images: posts[i].images,
+            number_like: posts[i].number_like,
+            status: posts[i].status,
+            title: posts[i].title,
+            user: user,
+          };
+          result.push(item);
+        }
+
+        res.json({
+          status: 200,
+          message: "Lấy danh sách bài viết thành công",
+          data: result,
+        });
+      }
+    } catch (e) {
+      res.status(404).json({
+        status: 404,
+        message: e.message,
+      });
+    }
+  }
   //[get]/api/posts/:user_id
   //[post]/api/posts
   async apicreatePost(req, res) {
     try {
       const { title, body, user_id, status } = req.body;
-      const files = req.files;
+      const files = req.file;
       const uploadedImages = [];
-      for (let image of files) {
-        uploadedImages.push({
-          nameimg: image.filename,
-          path: `/${image.destination}${image.filename}`,
-          size: image.size,
-          type: image.mimetype,
-        });
-      }
+      uploadedImages.push({
+        nameimg: files.filename,
+        path: `/${files.destination}${files.filename}`,
+        size: files.size,
+        type: files.mimetype,
+      });
+
       const user = await User.findOne({ _id: user_id });
       if (user) {
         Post.create({
           title: title,
           body: body,
           user_id: user_id,
+          username: user.name,
           status: status,
           created_at: Date.now(),
           images: uploadedImages,
@@ -35,10 +67,18 @@ class PostControllers {
               status: 200,
               message: "Tạo bài viết thành công",
               data: post,
+              user: {
+                avatarUrl: user.avatarUrl,
+                email: user.email,
+                name: user.name,
+                role: user.role,
+                userName: user.userName,
+              },
             });
           })
           .catch((error) => {
-            json.statua(500).json({
+            console.log(error);
+            json.status(500).json({
               status: 500,
               message: "Tạo bài viết thất bại",
             });
@@ -50,6 +90,7 @@ class PostControllers {
         });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json({
         status: 500,
         message: err.message,

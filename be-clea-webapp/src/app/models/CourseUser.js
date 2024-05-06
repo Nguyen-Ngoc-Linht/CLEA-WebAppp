@@ -17,6 +17,9 @@ const CourseUser = new Schema({
   course_name: {
     type: String,
   },
+  details_course: {
+    type: Object,
+  },
 });
 
 module.exports = mongoose.model("CourseUser", CourseUser);
