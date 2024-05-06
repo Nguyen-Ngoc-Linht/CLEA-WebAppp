@@ -4,10 +4,12 @@ const router = express.Router();
 const lessonControllers = require("../app/controllers/LessonsControllers");
 const authenication = require("../app/middlewares/authenication");
 
+router.get("/course_id/:lesson_id", lessonControllers.getLesson);
+
 //Chưa kiểm tra tài khoản có đăng ký hóa học hay không
 router.get(
   "/:course_id",
-  authenication.authenticateUser,
+  // authenication.authenticateUser,
   lessonControllers.getlistLesson
 );
 

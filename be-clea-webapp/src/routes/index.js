@@ -6,6 +6,7 @@ const courseUserRouter = require("./courseuser");
 const lessonRouter = require("./lessons");
 const postRouter = require("./posts");
 const uploadRouter = require("./upload");
+const utilsRouter = require("./utils");
 
 function route(app) {
   app.get("/", (req, res) => {
@@ -35,6 +36,9 @@ function route(app) {
 
   //upload
   app.use("/upload", uploadRouter);
+
+  //Utils
+  app.use("/utils", utilsRouter);
 }
 
 module.exports = route;
