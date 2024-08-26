@@ -63,12 +63,19 @@ class LessonControllers {
   async createLesson(req, res) {
     try {
       const course_id = req.params.course_id;
-      const { title, content, nameLesson, order, nameChapter } = req.body;
+      const {
+        title,
+        content,
+        nameLesson,
+        order,
+        nameChapter,
+        linkVideo,
+        image,
+      } = req.body;
       const course = Course.findOne({ _id: course_id });
       if (course) {
         const detailsinfo = {
-          linkVideo:
-            "https://www.youtube.com/embed/CyZ_O7v62h4?autoplay=1&mute=0&controls=1&origin=https%3A%2F%2Ffullstack.edu.vn&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1",
+          linkVideo: linkVideo,
           fileUrl: "HHHH",
         };
         Lesson.create({
@@ -80,7 +87,7 @@ class LessonControllers {
           nameChapter: nameChapter,
           access_time: Date.now(),
           details: detailsinfo,
-          //imagesLesson: imagesLesson,
+          image: image,
         })
           .then((lesson) => {
             res.json({
@@ -107,6 +114,23 @@ class LessonControllers {
   }
   //[put]/api/lesson/:id
   //[delete]/api/lesson/:id
+  async deleteLesson(req, res) {
+    try {
+      const lesson_id = req.params.lesson_id;
+      const lesson = await Lesson.deleteOne({ _id: lesson_id });
+      res.json({
+        status: 200,
+        message: "Xóa bài học thành công",
+        data: lesson,
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: 500,
+        message: "Xóa bài học thất bại",
+        error: err.message,
+      });
+    }
+  }
 }
 
 module.exports = new LessonControllers();

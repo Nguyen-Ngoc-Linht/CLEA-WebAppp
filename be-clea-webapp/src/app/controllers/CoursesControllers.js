@@ -94,10 +94,11 @@ class CoursesControllers {
         teacherId,
         category,
         createdById,
+        urlImage,
       } = req.body;
-      const usercreate = await User.findOne({
-        _id: createdById,
-      });
+      // const usercreate = await User.findOne({
+      //   _id: createdById,
+      // });
       const teacher = User.findOne({
         _id: teacherId,
       });
@@ -114,6 +115,7 @@ class CoursesControllers {
           createdAt: Date.now(),
           createdById: createdById,
           createdBy: usercreate.name,
+          urlImage: urlImage,
         })
           .then((course) => {
             res.json({
@@ -147,15 +149,8 @@ class CoursesControllers {
         teacherId,
         teacherName,
         category,
+        urlImage,
       } = req.body;
-      // const files = req.file;
-      // const uploadedImages = [];
-      // uploadedImages.push({
-      //   nameimg: files.filename,
-      //   path: `/${files.destination}${files.filename}`,
-      //   size: files.size,
-      //   type: files.mimetype,
-      // });
 
       const teacher = await User.findOne({
         _id: teacherId,
@@ -174,6 +169,7 @@ class CoursesControllers {
             teacherId: teacherId,
             teacherName: teacherName,
             category: category,
+            urlImage: urlImage,
           },
           { new: true }
         );

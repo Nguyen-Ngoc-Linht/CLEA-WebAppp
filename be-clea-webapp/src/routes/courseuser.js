@@ -5,7 +5,7 @@ const courseUserControllers = require("../app/controllers/CourseUserControllers"
 const authenication = require("../app/middlewares/authenication");
 
 router.get(
-  "/:user_id",
+  "/listcourse/:user_id",
   authenication.authenticateUser,
   courseUserControllers.getlistCourseUser
 );

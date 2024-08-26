@@ -5,6 +5,8 @@ const courseRouter = require("./course");
 const courseUserRouter = require("./courseuser");
 const lessonRouter = require("./lessons");
 const postRouter = require("./posts");
+const postCourseRouter = require("./postcourses");
+const commentsRouter = require("./comment");
 const uploadRouter = require("./upload");
 const utilsRouter = require("./utils");
 
@@ -33,6 +35,10 @@ function route(app) {
 
   //post
   app.use("/posts", postRouter);
+  app.use("/postcourse", postCourseRouter);
+
+  //comment
+  app.use("/commentlesson", commentsRouter);
 
   //upload
   app.use("/upload", uploadRouter);

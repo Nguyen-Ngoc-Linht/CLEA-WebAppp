@@ -5,22 +5,21 @@ class Images {
   async uploadImages(req, res, next) {
     try {
       // const images = req.files.map((file) => file.path);
-      const images = req.files;
+      const image = req.file;
       const uploadImages = [];
-      console.log(images);
 
-      for (let image of images) {
-        Image.create({
-          idImage: image.filename,
-          path: `http://localhost:3030/${image.destination}${image.filename}`,
-          typeImage: image.mimetype,
-        });
-        uploadImages.push({
-          name: image.filename,
-          path: `http://localhost:3030/${image.destination}${image.filename}`,
-        });
-      }
+      Image.create({
+        idImage: image.filename,
+        path: `http://localhost:3030/${image.destination}${image.filename}`,
+        typeImage: image.mimetype,
+      });
+      uploadImages.push({
+        name: image.filename,
+        path: `http://localhost:3030/${image.destination}${image.filename}`,
+      });
+
       return res.status(200).json({
+        status: 200,
         message: "Uploaded images successfully",
         data: uploadImages,
       });

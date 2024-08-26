@@ -26,7 +26,7 @@ const Lesson = new Schema({
   access_time: {
     type: Date,
   },
-  imagesLesson: {
+  image: {
     type: String,
   },
 });

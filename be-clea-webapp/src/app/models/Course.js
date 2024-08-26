@@ -32,6 +32,9 @@ const Course = new Schema({
   createdById: {
     type: String,
   },
+  urlImage: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Course", Course);

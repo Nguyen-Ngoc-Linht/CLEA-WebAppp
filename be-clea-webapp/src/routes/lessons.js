@@ -19,4 +19,6 @@ router.post(
   lessonControllers.createLesson
 );
 
+router.delete("/course_id/:lesson_id", lessonControllers.deleteLesson);
+
 module.exports = router;

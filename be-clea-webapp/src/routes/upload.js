@@ -18,13 +18,13 @@ const storage = multer.diskStorage({
     cb(null, "upload/");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
+    cb(null, file.originalname);
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/", upload.array("images", 10), images.uploadImages);
+router.post("/", upload.single("image"), images.uploadImages);
 
 router.get("/:idimage", (req, res) => {
   const imageName = `upload/${req.params.idimage}`;

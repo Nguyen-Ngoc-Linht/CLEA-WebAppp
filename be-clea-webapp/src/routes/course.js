@@ -33,7 +33,6 @@ router.get("/category", coursesControllers.categoryCourse);
 router.post(
   "/course-item/:course_id",
   authenication.checkAdmin,
-  upload.single("images"),
   coursesControllers.updateCourse
 );
 

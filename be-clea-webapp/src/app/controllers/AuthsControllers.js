@@ -32,7 +32,11 @@ class AuthsControllers {
           }
         })
         .then((data) => {
-          res.json("Tao tai khoan thanh cong");
+          res.json({
+            status: 200,
+            message: "Tạo tài khoản thành công",
+            data: data,
+          });
         })
         .catch((err) => {
           res.status(err.status);

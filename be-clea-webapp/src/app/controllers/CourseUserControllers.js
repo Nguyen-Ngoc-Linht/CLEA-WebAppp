@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Course = require("../models/Course");
 
 class CourseUserController {
-  // [Get]/api/course-user/:user_id
+  // [Get]/api/course-user/listcourse/:user_id
   async getlistCourseUser(req, res) {
     try {
       const userId = req.params.user_id;
@@ -92,6 +92,32 @@ class CourseUserController {
       res.status(500).json({
         status: 500,
         message: "Error",
+      });
+    }
+  }
+
+  //[get]/api/course-user/listuser/:course_id
+  async getlistUserCourse(req, res) {
+    try {
+      const course_id = req.params.course_id;
+
+      const course = await Course.findOne({ _id: course_id });
+
+      if (course) {
+        const userCourse = await CourseUser.find({ course_id: course_id });
+
+        if (userCourse.length === 0) {
+          return res.status(404).json({
+            status: 404,
+            message: "Khóa học không có thành viên nào",
+          });
+        }
+      }
+    } catch (err) {
+      console.error(error);
+      res.status(500).json({
+        status: 500,
+        message: "Lấy khóa học thất bại!",
       });
     }
   }
