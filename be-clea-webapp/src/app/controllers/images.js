@@ -4,19 +4,23 @@ const Image = require("../models/Image");
 class Images {
   async uploadImages(req, res, next) {
     try {
-      // const images = req.files.map((file) => file.path);
       const image = req.file;
-      const uploadImages = [];
+      const uploadImages = {
+        nameimg: image.filename,
+        path: `/${image.destination}${image.filename}`,
+        size: image.size,
+        type: image.mimetype,
+      };
 
-      Image.create({
-        idImage: image.filename,
-        path: `http://localhost:3030/${image.destination}${image.filename}`,
-        typeImage: image.mimetype,
-      });
-      uploadImages.push({
-        name: image.filename,
-        path: `http://localhost:3030/${image.destination}${image.filename}`,
-      });
+      // Image.create({
+      //   idImage: image.filename,
+      //   path: `http://localhost:3030/${image.destination}${image.filename}`,
+      //   typeImage: image.mimetype,
+      // });
+      // uploadImages.push({
+      //   name: image.filename,
+      //   path: `http://localhost:3030/${image.destination}${image.filename}`,
+      // });
 
       return res.status(200).json({
         status: 200,

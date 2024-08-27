@@ -96,9 +96,9 @@ class CoursesControllers {
         createdById,
         urlImage,
       } = req.body;
-      // const usercreate = await User.findOne({
-      //   _id: createdById,
-      // });
+      const usercreate = User.findOne({
+        _id: createdById,
+      });
       const teacher = User.findOne({
         _id: teacherId,
       });
