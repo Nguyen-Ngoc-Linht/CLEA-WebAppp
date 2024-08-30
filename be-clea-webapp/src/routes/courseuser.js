@@ -10,9 +10,18 @@ router.get(
   courseUserControllers.getlistCourseUser
 );
 
+router.get("/list-user/:course_id", courseUserControllers.getlistUserCourse);
+
+router.get(
+  "/list-request-user/:course_id",
+  courseUserControllers.getListRequestCourse
+);
+
+router.post("/request-user", courseUserControllers.requestJoinCourse);
+
 router.post(
-  "/",
-  authenication.checkAdmin,
+  "/reponse-request-user",
+  // authenication.checkAdmin,
   courseUserControllers.addUserinCourse
 );
 

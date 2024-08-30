@@ -96,10 +96,10 @@ class CoursesControllers {
         createdById,
         urlImage,
       } = req.body;
-      const usercreate = User.findOne({
+      const usercreate = await User.findOne({
         _id: createdById,
       });
-      const teacher = User.findOne({
+      const teacher = await User.findOne({
         _id: teacherId,
       });
       if (usercreate && teacher && teacher.role === "TEACHER") {

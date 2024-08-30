@@ -6,8 +6,6 @@ class CommentController {
   async getcomment(req, res) {
     try {
       const lesson_id = req.params.lesson_id;
-
-      console.log(lesson_id);
       const comments = await Comment.find({
         lesson_id: lesson_id,
       });
@@ -18,6 +16,7 @@ class CommentController {
           const user = await User.findOne({ _id: comments[i].user_id });
 
           const item = {
+            id: comments[i]._id,
             content: comments[i].content,
             images: comments[i].images,
             lesson_id: comments[i].lesson_id,

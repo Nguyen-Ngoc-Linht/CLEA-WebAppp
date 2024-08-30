@@ -13,6 +13,7 @@ class PostControllers {
         for (let i = 0; i < posts.length; i++) {
           const user = await User.findOne({ _id: posts[i].user_id });
           const item = {
+            id: posts[i]._id,
             body: posts[i].body,
             created_at: posts[i].created_at,
             images: posts[i].images,

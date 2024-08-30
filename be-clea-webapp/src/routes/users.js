@@ -7,17 +7,23 @@ const authenication = require("../app/middlewares/authenication");
 router.get("/getuser/:id", userControllers.getUser);
 
 router.post(
-  "/:id",
+  "/setrole/:user_id",
   authenication.authenticateUser,
   authenication.checkAdmin,
   userControllers.setrole
 );
 
 router.post(
-  "/block/:id",
+  "/block/:user_id",
   authenication.authenticateUser,
   authenication.checkAdmin,
   userControllers.block
+);
+
+router.post(
+  "update/:user_id",
+  authenication.authenticateUser,
+  userControllers.update
 );
 
 router.get("/getteacher", userControllers.getteacher);
