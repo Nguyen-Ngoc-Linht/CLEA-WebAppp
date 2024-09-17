@@ -2,7 +2,7 @@ const Lesson = require("../models/Lesson");
 const Course = require("../models/Course");
 
 class LessonControllers {
-  //[get]/api/lesson/:course_id
+  //[get]/api/lesson/:course_id - Lấy danh sách bài học của khóa học
   async getlistLesson(req, res) {
     try {
       const course_id = req.params.course_id;
@@ -32,7 +32,7 @@ class LessonControllers {
       res.status(500).json({ message: err.message });
     }
   }
-  //[get]/api/lesson/course_id/:lesson_id
+  //[get]/api/lesson/course_id/:lesson_id - Lấy chi tiết một bài học của khóa học
   async getLesson(req, res) {
     try {
       const lesson_id = req.params.lesson_id;
@@ -59,7 +59,7 @@ class LessonControllers {
       });
     }
   }
-  //[post]/api/lesson/:course_id
+  //[post]/api/lesson/:course_id - Tạo bài học mới cho khóa học
   async createLesson(req, res) {
     try {
       const course_id = req.params.course_id;
@@ -112,8 +112,8 @@ class LessonControllers {
       });
     }
   }
-  //[put]/api/lesson/:id
-  //[delete]/api/lesson/:id
+  //[put]/api/lesson/:id - Sửa bài học cho khóa học
+  //[delete]/api/lesson/:id - Xóa bài học của khóa học
   async deleteLesson(req, res) {
     try {
       const lesson_id = req.params.lesson_id;

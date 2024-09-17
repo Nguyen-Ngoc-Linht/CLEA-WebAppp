@@ -3,7 +3,7 @@ const PostCourse = require("../models/PostCourse");
 const User = require("../models/User");
 
 class PostControllers {
-  //[get]/api/posts/
+  //[get]/api/posts/ - Lấy danh sách bài đăng trên hệ thống
   async index(req, res) {
     try {
       const posts = await Post.find({});
@@ -38,7 +38,7 @@ class PostControllers {
       });
     }
   }
-  //[get]/api/posts/:user_id
+  //[get]/api/posts/:user_id - Lấy danh sach bài viết trong khóa học
   async getpostscourse(req, res) {
     try {
       const course_id = req.params.course_id;
@@ -76,7 +76,28 @@ class PostControllers {
       });
     }
   }
-  //[post]/api/posts
+
+  //[get]/api/posts/list-post-user/:user_id - Lấy danh sách bài đăng theo user
+  async getListPostUser(req, res) {
+    try {
+      const userId = req.params.user_id;
+      const listpostUser = await Post.find({ user_id: userId });
+      if (listpostUser) {
+        res.json({
+          status: 200,
+          message: "Lấy danh sách bài viết thành công",
+          data: listpostUser,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
+  //[post]/api/posts -- Đăng bài viết lên hệ thống
   async apicreatePost(req, res) {
     try {
       const { title, body, user_id, course_id, status } = req.body;
@@ -138,7 +159,7 @@ class PostControllers {
     }
   }
 
-  //[post]/api/postcourse/:course_id
+  //[post]/api/postcourse/:course_id - Đăng bài viết lên khóa học
   async apicreatePostCourse(req, res) {
     try {
       const { title, body, user_id, course_id, status } = req.body;
@@ -200,7 +221,62 @@ class PostControllers {
     }
   }
   //[put]/api/posts/:id
-  //[delete]/api/posts/:id
+
+  //[delete]/api/posts/:post_id - Xóa bài viết trên hệ thống
+  async apideletePost(req, res) {
+    try {
+      const post_id = req.params.post_id;
+      await Post.deleteOne({ _id: post_id }).then((response) => {
+        res.status(200).json({
+          status: 200,
+          message: "Xóa bài viết thành công",
+          data: response,
+        });
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
+
+  //[delete]/api/postcourse/:post_id?:course_id - Xóa bài viết trong khóa học
+  async apideletePostCourse(req, res) {
+    try {
+      const post_id = req.params.post_id;
+      const course_id = req.query.course_id;
+      await PostCourse.deleteOne({ _id: post_id, course_id: course_id }).then(
+        (response) => {
+          res.status(200).json({
+            status: 200,
+            message: "Xóa bài viết thành công",
+            data: response,
+          });
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
+
+  //[post]/api/posts/feel-post/:post_id - Like bài viết
+  async apiFeelPost(req, res) {
+    try {
+      const post_id = req.params.post_id;
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
 }
 
 module.exports = new PostControllers();

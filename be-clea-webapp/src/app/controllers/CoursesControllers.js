@@ -2,7 +2,7 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 
 class CoursesControllers {
-  //[GET]/api/course -- get all courses
+  //[GET]/api/course -- Lấy danh sách khóa học trên hệ thống
   async index(req, res) {
     try {
       Course.find({}).then((courses) => {
@@ -24,7 +24,7 @@ class CoursesControllers {
     }
   }
 
-  //[GET]/api/course/:course_id -- get course by course
+  //[GET]/api/course/:course_id -- Lấy thông tin chi tiết một khóa học
   async getCourse(req, res) {
     try {
       const course_id = req.params.course_id;
@@ -53,7 +53,7 @@ class CoursesControllers {
     }
   }
 
-  //[GET]/api/course/category?category= -- get all courses with category
+  //[GET]/api/course/category?category= -- Lấy danh sách khóa học theo chủ đề
   async categoryCourse(req, res) {
     try {
       const category = req.query.category;
@@ -83,7 +83,7 @@ class CoursesControllers {
     }
   }
 
-  //[post]/api/course -- tao course
+  //[post]/api/course -- Tạo một khóa học mới
   async creatCourse(req, res) {
     try {
       const {
@@ -137,7 +137,7 @@ class CoursesControllers {
     }
   }
 
-  // [PUT]/api/course/:idcourse
+  // [PUT]/api/course/:idcourse - Chỉnh sửa một khóa học
   async updateCourse(req, res) {
     try {
       const course_id = req.params.course_id;
@@ -195,7 +195,7 @@ class CoursesControllers {
     }
   }
 
-  //[DELETE]/api/course/:idcourse
+  //[DELETE]/api/course/:idcourse - Xóa một khóa học
   async deleteCourse(req, res) {
     try {
     } catch (err) {

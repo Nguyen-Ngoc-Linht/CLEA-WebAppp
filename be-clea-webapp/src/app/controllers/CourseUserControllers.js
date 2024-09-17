@@ -256,7 +256,7 @@ class CourseUserController {
     }
   }
 
-  //[get]//api/course-user/checkaccount
+  //[get]//api/course-user/checkaccount - Kiểm tra tài khoản đã đăng ký khóa học hay chưa
   async checkAccount(req, res) {
     try {
       const { user_id, course_id } = req.body;

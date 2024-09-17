@@ -2,7 +2,7 @@ const Comment = require("../models/Comment");
 const User = require("../models/User");
 
 class CommentController {
-  //[get]/api/commentslesson/:lesson_id
+  //[get]/api/commentslesson/:lesson_id - Lấy danh sách bình luận của một bài học
   async getcomment(req, res) {
     try {
       const lesson_id = req.params.lesson_id;
@@ -47,7 +47,7 @@ class CommentController {
       });
     }
   }
-  //[post]/api/commentslesson/:lesson_id
+  //[post]/api/commentslesson/:lesson_id - Bình luận 1 bài học
   async createComment(req, res) {
     try {
       const lesson_id = req.params.lesson_id;
@@ -91,8 +91,8 @@ class CommentController {
       });
     }
   }
-  //[put]/api/commentslesson/:lesson_id
-  //[delete]/api/commentslesson/:comment_id
+  //[put]/api/commentslesson/:lesson_id - Sửa bình luận khỏi một bài học
+  //[delete]/api/commentslesson/:comment_id - Xóa bình luận khỏi một bài học
   async deleteComment(req, res) {
     try {
       const comment_id = req.params.comment_id;

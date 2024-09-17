@@ -2,7 +2,7 @@
 const User = require("../models/User");
 
 class UsersControllers {
-  //[GET]/api/users
+  //[GET]/api/users - Lấy danh sách người dùng trên hệ thống
   async getlistUser(req, res) {
     try {
       User.find({}).then((users) => {
@@ -20,7 +20,7 @@ class UsersControllers {
     }
   }
 
-  //[get]/api/users/getteacher
+  //[get]/api/users/getteacher - Lấy danh sách giáo viên trên hệ thống
   async getteacher(req, res) {
     try {
       User.find({ role: "TEACHER" }).then((teacher) => {
@@ -39,7 +39,7 @@ class UsersControllers {
     }
   }
 
-  //[GET]/api/users/getuser/:user_id
+  //[GET]/api/users/getuser/:user_id - lấy chi tiết một tài khoản
   async getUser(req, res) {
     try {
       const idUser = req.params.id;
@@ -60,7 +60,7 @@ class UsersControllers {
     }
   }
 
-  //[POST]/api/users/setrole/:user_id
+  //[POST]/api/users/setrole/:user_id - Cập nhật quyền cho một tài khoản
   async setrole(req, res) {
     try {
       const idUser = req.params.user_id;
@@ -87,7 +87,7 @@ class UsersControllers {
     }
   }
 
-  //[POST]/api/users/update/:user_id
+  //[POST]/api/users/update/:user_id - Cập nhật thông tin của tài khoản
   async update(req, res) {
     try {
       const idUser = req.params.user_id;
@@ -123,7 +123,7 @@ class UsersControllers {
     }
   }
 
-  //[POST]/api/users/block/:id
+  //[POST]/api/users/block/:id - Chặn một tài khoản khỏi hệ thống
   async block(req, res) {
     try {
       const idUser = req.params.id;
