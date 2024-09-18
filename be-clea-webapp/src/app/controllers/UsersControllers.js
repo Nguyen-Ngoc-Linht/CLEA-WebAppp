@@ -20,7 +20,7 @@ class UsersControllers {
     }
   }
 
-  //[get]/api/users/getteacher - Lấy danh sách giáo viên trên hệ thống
+  //[get]/api/users/get-teacher - Lấy danh sách giáo viên trên hệ thống
   async getteacher(req, res) {
     try {
       User.find({ role: "TEACHER" }).then((teacher) => {
@@ -106,11 +106,11 @@ class UsersControllers {
         { new: true }
       );
 
-      if (updatedUser) {
+      if (updateUser) {
         res.status(200).send({
           status: 200,
           message: "Cập nhật người dùng thành công",
-          user: updatedUser,
+          user: updateUser,
         });
       } else {
         res.status(404).send({

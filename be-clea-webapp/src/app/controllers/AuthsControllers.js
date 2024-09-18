@@ -27,6 +27,7 @@ class AuthsControllers {
               password: password,
               email: req.body.email || "",
               avatarUrl: "",
+              createdAt: new Date(),
               role: "USER",
             });
           }
@@ -62,7 +63,7 @@ class AuthsControllers {
           var token = jwt.sign(
             { id: user.id, userName: user.userName },
             JWT_SECRET_KEY,
-            { expiresIn: 60 * 60 }
+            { expiresIn: 60 * 60 * 10 }
           );
           Token.create({
             token: token,

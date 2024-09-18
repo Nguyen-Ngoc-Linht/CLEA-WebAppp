@@ -9,6 +9,7 @@ const postCourseRouter = require("./postcourses");
 const commentsRouter = require("./comment");
 const uploadRouter = require("./upload");
 const utilsRouter = require("./utils");
+const videoRouter = require("./video");
 
 function route(app) {
   app.get("/", (req, res) => {
@@ -42,6 +43,9 @@ function route(app) {
 
   //upload
   app.use("/upload", uploadRouter);
+
+  // Video Upload
+  app.use("/video", videoRouter);
 
   //Utils
   app.use("/utils", utilsRouter);

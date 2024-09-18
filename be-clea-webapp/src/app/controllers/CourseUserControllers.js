@@ -4,14 +4,14 @@ const Course = require("../models/Course");
 const RequestJoinCourse = require("../models/RequestJoinCourse");
 
 class CourseUserController {
-  // [Get]/api/course-user/listcourse/:user_id - Lấy danh sách khóa học của người dùng
+  // [Get]/api/course-user/list-course/:user_id - Lấy danh sách khóa học của người dùng
   async getlistCourseUser(req, res) {
     try {
       const userId = req.params.user_id;
       const coursesUser = await CourseUser.find({ user_id: userId });
 
       if (coursesUser.length === 0) {
-        return res.status(404).json({
+        return res.json({
           status: 404,
           message: "Bạn chưa có khóa học nào",
         });
@@ -237,8 +237,15 @@ class CourseUserController {
         data.push({
           id: item._id,
           time_in: item.time_in,
-          user: user,
           course_name: course.name, // Lấy tên khóa học từ biến course
+          avatarUrl: user.avatarUrl,
+          name: user.name,
+          address: user.address,
+          email: user.email,
+          user_id: user._id,
+          studyAt: user.studyAt,
+          age: user.age,
+          phone: user.phone,
         });
       }
 
