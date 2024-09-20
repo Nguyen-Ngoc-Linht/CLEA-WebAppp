@@ -60,6 +60,7 @@ class CourseUserController {
               user: user,
               timeRequest: item.timeRequest,
               statusRequest: item.statusRequest,
+              id: item._id,
             });
           }
         }
@@ -95,7 +96,7 @@ class CourseUserController {
           if (statusRequest === "DONE") {
             await RequestJoinCourse.findByIdAndUpdate(
               { _id: request_id },
-              { statusRequest: statusRequest },
+              { statusRequest: statusRequest, timeApprove: Date.now() },
               { new: true }
             );
             await Course.findOneAndUpdate(
@@ -164,6 +165,17 @@ class CourseUserController {
       const course = await Course.findOne({ _id: course_id });
 
       if (user && course) {
+        const userCourse = await CourseUser.findOne({
+          user_id: user_id,
+          course_id: course_id,
+        });
+        if (userCourse) {
+          res.json({
+            status: 401,
+            message: "Bạn đã tham gia khóa học",
+          });
+        }
+
         const request = await RequestJoinCourse.findOne({
           course_id: course_id,
           user_id: user_id,
